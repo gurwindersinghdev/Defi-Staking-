@@ -169,7 +169,7 @@ export const action = async (i, amount, tokenaddress, action) => {
       let waitApproval = await approveTransfer.wait();
       if (waitApproval) {
         // Stake tokens in the specified pool.
-        let result = await masterchef.stake(i, amountToWei).then(() => {
+        let result = await guardian.stake(i, amountToWei).then(() => {
           return true;
         });
         return result;
@@ -183,8 +183,8 @@ export const action = async (i, amount, tokenaddress, action) => {
 
 export const autoCompound = async () => {
   let web3connection = await connectWallet();
-  let masterchef = web3connection.masterchef;
-  let result = await masterchef.autoCompound().then(() => {
+  let guardian = web3connection.masterchef;
+  let result = await guardian.autoCompound().then(() => {
     return true;
   });
   return result;
